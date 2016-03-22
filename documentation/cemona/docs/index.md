@@ -1,13 +1,14 @@
-# Welcome to Cemona
+# Проект Cemona
 
-For full documentation visit [mkdocs.org](http://mkdocs.org).
+Это подробная документация по проекту. Если какая-то информация устарела или не написана - просьба сообщить об этом, а еще лучше - исправить самому.
 
-## Commands
+## Используемый стек технологий
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs help` - Print this help message.
+* Фрэймворк [Django1.8.9](https://www.djangoproject.com/).
+* СУБД [PostgreSQL9.4](http://www.postgresql.org/).
+* [Python3.4](https://www.python.org/) - язык общего назначения.
+* [Nginx](http://nginx.org/ru/) - сервер для отдачи статики.
+* [WSGI HTTP Server](http://gunicorn.org/) - для проекта на релизе.
 
 ## Project layout
 
