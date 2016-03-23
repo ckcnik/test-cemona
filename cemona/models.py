@@ -117,8 +117,52 @@ from django.db import models
 #         verbose_name_plural = _('Measurements')
 
 
+class Probe(models.Model):
+    # idrec = models.AutoField(primary_key=True)
+    serial_number = models.CharField(unique=True, max_length=50)
+    memory_size = models.IntegerField()
+    sd_size = models.IntegerField()
+    mac_address = models.CharField(max_length=16)
+    os_version = models.CharField(max_length=100)
+    control_sw_version = models.CharField(max_length=100)
+    communication_device = models.CharField(max_length=20, blank=True, null=True)
+    ip_address = models.GenericIPAddressField(blank=True, null=True)
+    ip_mask = models.GenericIPAddressField(blank=True, null=True)
+    ip_gateway = models.GenericIPAddressField(blank=True, null=True)
+    dns = models.GenericIPAddressField(blank=True, null=True)
+    ftp_address = models.GenericIPAddressField(blank=True, null=True)
+    ftp_login = models.CharField(max_length=20, blank=True, null=True)
+    ftp_password = models.CharField(max_length=20, blank=True, null=True)
+    ftp_port = models.IntegerField(blank=True, null=True)
+    ftp_period = models.IntegerField(blank=True, null=True)
+    http_address = models.GenericIPAddressField(blank=True, null=True)
+    http_port = models.IntegerField(blank=True, null=True)
+    http_period = models.IntegerField(blank=True, null=True)
+    critical_sd_size = models.IntegerField(blank=True, null=True)
+    ssid = models.CharField(max_length=10, blank=True, null=True)
+    wifi_security = models.TextField(blank=True, null=True)  # This field type is a guess.
+    wifi_encription = models.TextField(blank=True, null=True)  # This field type is a guess.
+    wifi_password = models.CharField(max_length=20, blank=True, null=True)
+    wifi_state = models.TextField(blank=True, null=True)  # This field type is a guess.
+    ethernet_test_status = models.CharField(max_length=10, blank=True, null=True)
+    wifi_test_status = models.CharField(max_length=10, blank=True, null=True)
+    gps_status = models.TextField(blank=True, null=True)  # This field type is a guess.
+    ethernet_status = models.TextField(blank=True, null=True)  # This field type is a guess.
+    wifi_status = models.TextField(blank=True, null=True)  # This field type is a guess.
+    probe_status = models.TextField(blank=True, null=True)  # This field type is a guess.
+    work_mode = models.TextField(blank=True, null=True)  # This field type is a guess.
+    target_type = models.TextField(blank=True, null=True)  # This field type is a guess.
+    position_system = models.TextField(blank=True, null=True)  # This field type is a guess.
+    ftp_mode = models.TextField(blank=True, null=True)  # This field type is a guess.
+
+    class Meta:
+        verbose_name = _('Probe')
+        verbose_name_plural = _('Probes')
+
+
 class Modem(models.Model):
     # idrec = models.AutoField(primary_key=True)
+    probe = models.ForeignKey(Probe, verbose_name=_(u'Probe'))
     manufacturer = models.CharField(max_length=50, blank=True, null=True)
     model = models.CharField(max_length=50, blank=True, null=True)
     imei = models.CharField(max_length=16, blank=True, null=True)
@@ -249,51 +293,7 @@ class Modem(models.Model):
 #     class Meta:
 #         managed = False
 #         db_table = 'nemo_event'
-#
-#
-# class Probe(models.Model):
-#     idrec = models.AutoField(primary_key=True)
-#     serial_number = models.CharField(unique=True, max_length=50)
-#     memory_size = models.IntegerField()
-#     sd_size = models.IntegerField()
-#     mac_address = models.CharField(max_length=16)
-#     os_version = models.CharField(max_length=100)
-#     control_sw_version = models.CharField(max_length=100)
-#     communication_device = models.CharField(max_length=20, blank=True, null=True)
-#     ip_address = models.GenericIPAddressField(blank=True, null=True)
-#     ip_mask = models.GenericIPAddressField(blank=True, null=True)
-#     ip_gateway = models.GenericIPAddressField(blank=True, null=True)
-#     dns = models.GenericIPAddressField(blank=True, null=True)
-#     ftp_address = models.GenericIPAddressField(blank=True, null=True)
-#     ftp_login = models.CharField(max_length=20, blank=True, null=True)
-#     ftp_password = models.CharField(max_length=20, blank=True, null=True)
-#     ftp_port = models.IntegerField(blank=True, null=True)
-#     ftp_period = models.IntegerField(blank=True, null=True)
-#     http_address = models.GenericIPAddressField(blank=True, null=True)
-#     http_port = models.IntegerField(blank=True, null=True)
-#     http_period = models.IntegerField(blank=True, null=True)
-#     critical_sd_size = models.IntegerField(blank=True, null=True)
-#     ssid = models.CharField(max_length=10, blank=True, null=True)
-#     wifi_security = models.TextField(blank=True, null=True)  # This field type is a guess.
-#     wifi_encription = models.TextField(blank=True, null=True)  # This field type is a guess.
-#     wifi_password = models.CharField(max_length=20, blank=True, null=True)
-#     wifi_state = models.TextField(blank=True, null=True)  # This field type is a guess.
-#     ethernet_test_status = models.CharField(max_length=10, blank=True, null=True)
-#     wifi_test_status = models.CharField(max_length=10, blank=True, null=True)
-#     gps_status = models.TextField(blank=True, null=True)  # This field type is a guess.
-#     ethernet_status = models.TextField(blank=True, null=True)  # This field type is a guess.
-#     wifi_status = models.TextField(blank=True, null=True)  # This field type is a guess.
-#     probe_status = models.TextField(blank=True, null=True)  # This field type is a guess.
-#     work_mode = models.TextField(blank=True, null=True)  # This field type is a guess.
-#     target_type = models.TextField(blank=True, null=True)  # This field type is a guess.
-#     position_system = models.TextField(blank=True, null=True)  # This field type is a guess.
-#     ftp_mode = models.TextField(blank=True, null=True)  # This field type is a guess.
-#
-#     class Meta:
-#         managed = False
-#         db_table = 'probe'
-#
-#
+
 # class ProbeParam(models.Model):
 #     idrec = models.AutoField(primary_key=True)
 #     param = models.CharField(unique=True, max_length=50)
