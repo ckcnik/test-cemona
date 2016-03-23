@@ -11,24 +11,13 @@ from django.db import models
 import django.utils.timezone
 
 
-# class DjangoMigrations(models.Model):
-#     app = models.CharField(max_length=255)
-#     name = models.CharField(max_length=255)
-#     applied = models.DateTimeField()
-#
-#     class Meta:
-#         managed = False
-#         db_table = 'django_migrations'
-#
-#
-# class Event(models.Model):
-#     idrec = models.AutoField(primary_key=True)
-#     code = models.CharField(unique=True, max_length=10)
-#     name = models.CharField(max_length=250)
-#
-#     class Meta:
-#         managed = False
-#         db_table = 'event'
+class Event(models.Model):
+    code = models.CharField(unique=True, max_length=10)  # TODO Для чего код нужен?
+    name = models.CharField(max_length=250)
+
+    class Meta:
+        verbose_name = _('Event')
+        verbose_name_plural = _('Events')
 #
 #
 # class Journal(models.Model):
@@ -116,7 +105,9 @@ class Measurement(models.Model):
 
 
 class Probe(models.Model):
-    # idrec = models.AutoField(primary_key=True)
+    """
+    Probe model
+    """
     serial_number = models.CharField(unique=True, max_length=50)
     memory_size = models.IntegerField()
     sd_size = models.IntegerField()
@@ -159,6 +150,9 @@ class Probe(models.Model):
 
 
 class Modem(models.Model):
+    """
+    Modem model
+    """
     probe = models.ForeignKey(Probe, verbose_name=_(u'Probe'))
     manufacturer = models.CharField(max_length=50, blank=True, null=True, verbose_name=_(u'Modem manufacturer'))
     model = models.CharField(max_length=50, blank=True, null=True, verbose_name=_(u'Modem model'))
@@ -178,9 +172,6 @@ class Modem(models.Model):
     ethernet_test_status = models.TextField(blank=True, null=True)  # This field type is a guess.
     wifi_test_status = models.TextField(blank=True, null=True)  # This field type is a guess.
 
-    # class Meta:
-    #     managed = False
-    #     db_table = 'modem'
     class Meta:
         verbose_name = _('Modem')
         verbose_name_plural = _('Modems')
@@ -196,101 +187,7 @@ class Modem(models.Model):
 #     class Meta:
 #         managed = False
 #         db_table = 'modem_param'
-#
-#
-# class NemoAqdl(models.Model):
-#     id = models.BigIntegerField(primary_key=True)
-#     aq_mean_dl = models.FloatField(blank=True, null=True)
-#     aq_delay_average = models.FloatField(blank=True, null=True)
-#     audio_sample_duration_dl = models.IntegerField(blank=True, null=True)
-#     mos_type_dl = models.IntegerField(blank=True, null=True)
-#     the_event = models.BinaryField(blank=True, null=True)
-#
-#     class Meta:
-#         managed = False
-#         db_table = 'nemo_aqdl'
-#
-#
-# class NemoCaa(models.Model):
-#     id = models.BigIntegerField(primary_key=True)
-#     number_of_calls = models.SmallIntegerField(blank=True, null=True)
-#     phone_number = models.CharField(max_length=1024, blank=True, null=True)
-#     caller_phone_number = models.CharField(max_length=1024, blank=True, null=True)
-#     call_type = models.SmallIntegerField(blank=True, null=True)
-#     connection_direction = models.SmallIntegerField(blank=True, null=True)
-#     call_timeout = models.IntegerField(blank=True, null=True)
-#     the_event = models.BinaryField(blank=True, null=True)
-#
-#     class Meta:
-#         managed = False
-#         db_table = 'nemo_caa'
-#
-#
-# class NemoCac(models.Model):
-#     id = models.BigIntegerField(primary_key=True)
-#     call_type = models.IntegerField(blank=True, null=True)
-#     call_connection_status = models.IntegerField(blank=True, null=True)
-#     the_event = models.BinaryField(blank=True, null=True)
-#
-#     class Meta:
-#         managed = False
-#         db_table = 'nemo_cac'
-#
-#
-# class NemoCad(models.Model):
-#     id = models.BigIntegerField(primary_key=True)
-#     call_disconnect_status = models.IntegerField(blank=True, null=True)
-#     cs_disc_cause = models.IntegerField(blank=True, null=True)
-#     the_event = models.BinaryField(blank=True, null=True)
-#
-#     class Meta:
-#         managed = False
-#         db_table = 'nemo_cad'
-#
-#
-# class NemoCaf(models.Model):
-#     id = models.BigIntegerField(primary_key=True)
-#     call_failure_cause = models.IntegerField(blank=True, null=True)
-#     call_failure_time = models.SmallIntegerField(blank=True, null=True)
-#     call_type = models.IntegerField(blank=True, null=True)
-#     call_attempt_failure_status = models.IntegerField(blank=True, null=True)
-#     the_event = models.BinaryField(blank=True, null=True)
-#
-#     class Meta:
-#         managed = False
-#         db_table = 'nemo_caf'
-#
-#
-# class NemoEvent(models.Model):
-#     id = models.BigIntegerField()
-#     oid = models.BinaryField()
-#     current_cell_identification = models.IntegerField(blank=True, null=True)
-#     current_channel_number = models.IntegerField(blank=True, null=True)
-#     current_mcc = models.SmallIntegerField(blank=True, null=True)
-#     current_mnc = models.SmallIntegerField(blank=True, null=True)
-#     current_scrambling_code = models.IntegerField(blank=True, null=True)
-#     gps_distance = models.IntegerField(blank=True, null=True)
-#     gps_height = models.SmallIntegerField(blank=True, null=True)
-#     gps_latitude = models.FloatField(blank=True, null=True)
-#     gps_longitude = models.FloatField(blank=True, null=True)
-#     gps_number_of_satellites = models.SmallIntegerField(blank=True, null=True)
-#     gps_time = models.BinaryField(blank=True, null=True)
-#     gps_velocity = models.SmallIntegerField(blank=True, null=True)
-#     event_id = models.CharField(max_length=1024)
-#     time = models.BinaryField(blank=True, null=True)
-#     sql_time = models.BinaryField(blank=True, null=True)
-#     the_measurement_title = models.CharField(max_length=1024, blank=True, null=True)
-#     the_device_imsi = models.CharField(max_length=1024, blank=True, null=True)
-#     the_device_imei = models.CharField(max_length=1024, blank=True, null=True)
-#     the_serving_system = models.IntegerField(blank=True, null=True)
-#     the_serving_band = models.IntegerField(blank=True, null=True)
-#     the_serving_type = models.IntegerField(blank=True, null=True)
-#     the_serving_technology = models.IntegerField(blank=True, null=True)
-#     inserted = models.DateTimeField(blank=True, null=True)
-#
-#     class Meta:
-#         managed = False
-#         db_table = 'nemo_event'
+
 
 # class ProbeParam(models.Model):
 #     idrec = models.AutoField(primary_key=True)
@@ -303,22 +200,24 @@ class Modem(models.Model):
 #         db_table = 'probe_param'
 #
 #
-# class RegisterAction(models.Model):
-#     idrec = models.BigIntegerField(primary_key=True)
-#     idmodem = models.ForeignKey(Modem, models.DO_NOTHING, db_column='idmodem')
-#     numstatemodem = models.IntegerField()
-#     idaction = models.ForeignKey(Event, models.DO_NOTHING, db_column='idaction', unique=True)
-#     idactionvalue = models.IntegerField()
-#     registered = models.DateTimeField()
-#     beggroup = models.IntegerField()
-#     curgroup = models.IntegerField(blank=True, null=True)
-#     endgroup = models.IntegerField(blank=True, null=True)
-#     closed = models.DateTimeField(blank=True, null=True)
-#
-#     class Meta:
-#         managed = False
-#         db_table = 'register_action'
-#         unique_together = (('idmodem', 'numstatemodem', 'idaction', 'idactionvalue'),)
+class RegisterAction(models.Model):
+    # idrec = models.BigIntegerField(primary_key=True)
+    modem = models.ForeignKey(Modem, verbose_name=_(u'Modem'))
+    numstatemodem = models.IntegerField()  # TODO Зачем ?
+    action = models.ForeignKey(Event)  # TODO Зачем uniq , unique=True?
+    idactionvalue = models.IntegerField()  # TODO Что это?
+    created = models.DateTimeField(default=django.utils.timezone.now, verbose_name=_(u'Date created'))
+    # TODO ЗАЧЕМ?
+    beggroup = models.IntegerField()
+    curgroup = models.IntegerField(blank=True, null=True)
+    endgroup = models.IntegerField(blank=True, null=True)
+    closed = models.DateTimeField(blank=True, null=True)
+
+    class Meta:
+        verbose_name = _('Event registration')
+        verbose_name_plural = _('Events registration')
+        unique_together = (('modem', 'numstatemodem', 'action', 'idactionvalue'),)
+
 
 # TODO Для чего вообще используем эту таблицу? 'Таблица регистрации измерений для формирования журнала измерений';
 class RegisterMeasurement(models.Model):
