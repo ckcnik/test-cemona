@@ -24,7 +24,6 @@ PREREQ_APPS = (
     'django.contrib.staticfiles',
     'bootstrap3',
     'rest_framework',
-    'rest_framework.authtoken',
 )
 PROJECT_APPS = (
     'cemona',
@@ -89,3 +88,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# Settings REST API
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
+    ),
+}
