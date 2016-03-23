@@ -61,20 +61,8 @@ class Event(models.Model):
 #         managed = False
 #         db_table = 'link_modem_param'
 #         unique_together = (('idmodem', 'idparam', 'activated'),)
-#
-#
-# class LinkProbeModem(models.Model):
-#     idrec = models.AutoField(primary_key=True)
-#     idprobe = models.ForeignKey('Probe', models.DO_NOTHING, db_column='idprobe')
-#     idmodem = models.ForeignKey('Modem', models.DO_NOTHING, db_column='idmodem')
-#     link_time = models.DateTimeField()
-#
-#     class Meta:
-#         managed = False
-#         db_table = 'link_probe_modem'
-#         unique_together = (('idprobe', 'idmodem', 'link_time'),)
-#
-#
+
+
 # class LinkProbeParam(models.Model):
 #     idrec = models.AutoField(primary_key=True)
 #     idprobe = models.ForeignKey('Probe', models.DO_NOTHING, db_column='idprobe')
@@ -176,6 +164,19 @@ class Modem(models.Model):
         verbose_name = _('Modem')
         verbose_name_plural = _('Modems')
 
+
+class LoggingModem(models.Model):
+    """
+    Logging at which time the modem was attached to a particular Probe
+    """
+    probe = models.ForeignKey(Probe, verbose_name=_(u'Modem APN'))
+    modem = models.ForeignKey(Modem, verbose_name=_(u'Modem APN'))
+    created = models.DateTimeField(default=django.utils.timezone.now, verbose_name=_(u'Date created'))
+
+    class Meta:
+        verbose_name = _('Logging Modem')
+        verbose_name_plural = _('Logging Modems')
+        # unique_together = (('idprobe', 'idmodem', 'link_time'),)
 
 # class ModemParam(models.Model):
 #     idrec = models.AutoField(primary_key=True)
