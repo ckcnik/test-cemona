@@ -14,7 +14,7 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-INSTALLED_APPS = (
+PREREQ_APPS = (
     'bootstrap_admin',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -23,8 +23,14 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bootstrap3',
-    'cemona',
+    'rest_framework',
 )
+PROJECT_APPS = (
+    'cemona',  # Main application
+    'cemona.apps.api',  # REST API
+)
+INSTALLED_APPS = PREREQ_APPS + PROJECT_APPS
+
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -83,3 +89,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# Settings REST API
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
+    ),
+}

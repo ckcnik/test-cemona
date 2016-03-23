@@ -6,7 +6,7 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from __future__ import unicode_literals
-
+from django.utils.translation import ugettext_lazy as _
 from django.db import models
 
 
@@ -100,44 +100,50 @@ from django.db import models
 #         unique_together = (('idprobe', 'idparam', 'activated'),)
 
 
-class Measurement(models.Model):
-    """
-    Model Measurements
-    """
-    idrec = models.AutoField(primary_key=True)
-    code = models.CharField(unique=True, max_length=50)
-    name = models.CharField(max_length=250)
-    codeid = models.IntegerField(blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'measurement'
-
-
-# class Modem(models.Model):
-#     idrec = models.AutoField(primary_key=True)
-#     manufacturer = models.CharField(max_length=50, blank=True, null=True)
-#     model = models.CharField(max_length=50, blank=True, null=True)
-#     imei = models.CharField(max_length=16, blank=True, null=True)
-#     hw = models.CharField(max_length=10, blank=True, null=True)
-#     fw = models.CharField(max_length=10, blank=True, null=True)
-#     imsi_sim = models.CharField(max_length=20, blank=True, null=True)
-#     time_zone = models.CharField(max_length=20, blank=True, null=True)
-#     apn = models.CharField(max_length=20, blank=True, null=True)
-#     apn_user = models.CharField(max_length=20, blank=True, null=True)
-#     apn_password = models.CharField(max_length=20, blank=True, null=True)
-#     ras = models.IntegerField(blank=True, null=True)
-#     status = models.TextField(blank=True, null=True)  # This field type is a guess.
-#     test_status = models.TextField(blank=True, null=True)  # This field type is a guess.
-#     mode = models.TextField(blank=True, null=True)  # This field type is a guess.
-#     ethernet_test_status = models.TextField(blank=True, null=True)  # This field type is a guess.
-#     wifi_test_status = models.TextField(blank=True, null=True)  # This field type is a guess.
+# class Measurement(models.Model):
+#     """
+#     Model Measurements
+#     """
+#     # idrec = models.AutoField(primary_key=True)
+#     code = models.CharField(unique=True, max_length=50)
+#     name = models.CharField(max_length=250)
+#     codeid = models.IntegerField(blank=True, null=True)
 #
+#     # class Meta:
+#     #     managed = False
+#     #     db_table = 'measurement'
 #     class Meta:
-#         managed = False
-#         db_table = 'modem'
-#
-#
+#         verbose_name = _('Measurement')
+#         verbose_name_plural = _('Measurements')
+
+
+class Modem(models.Model):
+    # idrec = models.AutoField(primary_key=True)
+    manufacturer = models.CharField(max_length=50, blank=True, null=True)
+    model = models.CharField(max_length=50, blank=True, null=True)
+    imei = models.CharField(max_length=16, blank=True, null=True)
+    hw = models.CharField(max_length=10, blank=True, null=True)
+    fw = models.CharField(max_length=10, blank=True, null=True)
+    imsi_sim = models.CharField(max_length=20, blank=True, null=True)
+    time_zone = models.CharField(max_length=20, blank=True, null=True)
+    apn = models.CharField(max_length=20, blank=True, null=True)
+    apn_user = models.CharField(max_length=20, blank=True, null=True)
+    apn_password = models.CharField(max_length=20, blank=True, null=True)
+    ras = models.IntegerField(blank=True, null=True)
+    status = models.TextField(blank=True, null=True)  # This field type is a guess.
+    test_status = models.TextField(blank=True, null=True)  # This field type is a guess.
+    mode = models.TextField(blank=True, null=True)  # This field type is a guess.
+    ethernet_test_status = models.TextField(blank=True, null=True)  # This field type is a guess.
+    wifi_test_status = models.TextField(blank=True, null=True)  # This field type is a guess.
+
+    # class Meta:
+    #     managed = False
+    #     db_table = 'modem'
+    class Meta:
+        verbose_name = _('Modem')
+        verbose_name_plural = _('Modems')
+
+
 # class ModemParam(models.Model):
 #     idrec = models.AutoField(primary_key=True)
 #     param = models.CharField(unique=True, max_length=50)
