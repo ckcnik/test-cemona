@@ -26,7 +26,8 @@ PREREQ_APPS = (
     'rest_framework',
 )
 PROJECT_APPS = (
-    'cemona',
+    'cemona',  # Main application
+    'api',  # REST API
 )
 INSTALLED_APPS = PREREQ_APPS + PROJECT_APPS
 
