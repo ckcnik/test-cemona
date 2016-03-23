@@ -14,7 +14,7 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-INSTALLED_APPS = (
+PREREQ_APPS = (
     'bootstrap_admin',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -23,8 +23,14 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bootstrap3',
+    'rest_framework',
+    'rest_framework.authtoken',
+)
+PROJECT_APPS = (
     'cemona',
 )
+INSTALLED_APPS = PREREQ_APPS + PROJECT_APPS
+
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
