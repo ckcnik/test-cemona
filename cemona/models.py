@@ -161,19 +161,18 @@ class Probe(models.Model):
 
 
 class Modem(models.Model):
-    # idrec = models.AutoField(primary_key=True)
     probe = models.ForeignKey(Probe, verbose_name=_(u'Probe'))
-    manufacturer = models.CharField(max_length=50, blank=True, null=True)
-    model = models.CharField(max_length=50, blank=True, null=True)
-    imei = models.CharField(max_length=16, blank=True, null=True)
-    hw = models.CharField(max_length=10, blank=True, null=True)
-    fw = models.CharField(max_length=10, blank=True, null=True)
-    imsi_sim = models.CharField(max_length=20, blank=True, null=True)
-    time_zone = models.CharField(max_length=20, blank=True, null=True)
-    apn = models.CharField(max_length=20, blank=True, null=True)
-    apn_user = models.CharField(max_length=20, blank=True, null=True)
-    apn_password = models.CharField(max_length=20, blank=True, null=True)
-    ras = models.IntegerField(blank=True, null=True)
+    manufacturer = models.CharField(max_length=50, blank=True, null=True, verbose_name=_(u'Modem manufacturer'))
+    model = models.CharField(max_length=50, blank=True, null=True, verbose_name=_(u'Modem model'))
+    imei = models.CharField(max_length=16, blank=True, null=True, verbose_name=_(u'Modem IMEI'))
+    hw = models.CharField(max_length=10, blank=True, null=True, verbose_name=_(u'HW modem'))
+    fw = models.CharField(max_length=10, blank=True, null=True, verbose_name=_(u'FW modem'))
+    imsi_sim = models.CharField(max_length=20, blank=True, null=True, verbose_name=_(u'Modem IMSI'))
+    time_zone = models.CharField(max_length=20, blank=True, null=True, verbose_name=_(u'Time Zone'))  # todo: не знаю для чего
+    apn = models.CharField(max_length=20, blank=True, null=True, verbose_name=_(u'Modem APN'))
+    apn_user = models.CharField(max_length=20, blank=True, null=True, verbose_name=_(u'Modem APN user'))
+    apn_password = models.CharField(max_length=20, blank=True, null=True, verbose_name=_(u'Modem APN password'))
+    ras = models.IntegerField(blank=True, null=True, verbose_name=_(u'Modem RAS number'))
     status = models.TextField(blank=True, null=True)  # This field type is a guess.
     test_status = models.TextField(blank=True, null=True)  # This field type is a guess.
     mode = models.TextField(blank=True, null=True)  # This field type is a guess.
