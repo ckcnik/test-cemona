@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-23 10:37+0000\n"
+"POT-Creation-Date: 2016-03-23 11:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,62 +19,74 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: cemona/models.py:159 cemona/models.py:164
+#: cemona/models.py:114 cemona/models.py:325
+msgid "Measurement"
+msgstr "Измерение"
+
+#: cemona/models.py:115
+msgid "Measurements"
+msgstr "Измерения"
+
+#: cemona/models.py:157 cemona/models.py:162
 msgid "Probe"
 msgstr "Проба"
 
-#: cemona/models.py:160
+#: cemona/models.py:158
 msgid "Probes"
 msgstr "Пробы"
 
-#: cemona/models.py:165
+#: cemona/models.py:163
 msgid "Modem manufacturer"
 msgstr "Производитель модема"
 
-#: cemona/models.py:166
+#: cemona/models.py:164
 msgid "Modem model"
 msgstr "Модель модема"
 
-#: cemona/models.py:167
+#: cemona/models.py:165
 msgid "Modem IMEI"
 msgstr "IMEI номер модема"
 
-#: cemona/models.py:168
+#: cemona/models.py:166
 msgid "HW modem"
 msgstr "Версия аппаратной части модема"
 
-#: cemona/models.py:169
+#: cemona/models.py:167
 msgid "FW modem"
 msgstr "Версия прошивки модема"
 
-#: cemona/models.py:170
+#: cemona/models.py:168
 msgid "Modem IMSI"
 msgstr "IMSI SIM карты в модеме"
 
-#: cemona/models.py:171
+#: cemona/models.py:170
 msgid "Time Zone"
 msgstr "Часовой пояс"
 
-#: cemona/models.py:172
+#: cemona/models.py:171
 msgid "Modem APN"
 msgstr "APN точка модема"
 
-#: cemona/models.py:173
+#: cemona/models.py:172
 msgid "Modem APN user"
 msgstr "APN user модема "
 
-#: cemona/models.py:174
+#: cemona/models.py:173
 msgid "Modem APN password"
 msgstr "APN password модема "
 
-#: cemona/models.py:175
+#: cemona/models.py:174
 msgid "Modem RAS number"
 msgstr "RAS номер модема"
 
-#: cemona/models.py:186
+#: cemona/models.py:185 cemona/models.py:330
 msgid "Modem"
 msgstr "Модем"
 
-#: cemona/models.py:187
+#: cemona/models.py:186 cemona/models.py:331
 msgid "Modems"
 msgstr "Модемы"
+
+#: cemona/models.py:327
+msgid "Date created"
+msgstr "Дата создания"

@@ -8,6 +8,7 @@
 from __future__ import unicode_literals
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
+import django.utils.timezone
 
 
 # class DjangoMigrations(models.Model):
@@ -100,21 +101,18 @@ from django.db import models
 #         unique_together = (('idprobe', 'idparam', 'activated'),)
 
 
-# class Measurement(models.Model):
-#     """
-#     Model Measurements
-#     """
-#     # idrec = models.AutoField(primary_key=True)
-#     code = models.CharField(unique=True, max_length=50)
-#     name = models.CharField(max_length=250)
-#     codeid = models.IntegerField(blank=True, null=True)
-#
-#     # class Meta:
-#     #     managed = False
-#     #     db_table = 'measurement'
-#     class Meta:
-#         verbose_name = _('Measurement')
-#         verbose_name_plural = _('Measurements')
+class Measurement(models.Model):
+    """
+    Model Measurements
+    """
+    # idrec = models.AutoField(primary_key=True)
+    code = models.CharField(unique=True, max_length=50)  # todo: Где будем использовать эти значения?
+    name = models.CharField(max_length=250)
+    codeid = models.IntegerField(blank=True, null=True)  # todo: Для чего это поле?
+
+    class Meta:
+        verbose_name = _('Measurement')
+        verbose_name_plural = _('Measurements')
 
 
 class Probe(models.Model):
@@ -168,7 +166,8 @@ class Modem(models.Model):
     hw = models.CharField(max_length=10, blank=True, null=True, verbose_name=_(u'HW modem'))
     fw = models.CharField(max_length=10, blank=True, null=True, verbose_name=_(u'FW modem'))
     imsi_sim = models.CharField(max_length=20, blank=True, null=True, verbose_name=_(u'Modem IMSI'))
-    time_zone = models.CharField(max_length=20, blank=True, null=True, verbose_name=_(u'Time Zone'))  # todo: не знаю для чего
+    time_zone = models.CharField(max_length=20, blank=True, null=True,
+                                 verbose_name=_(u'Time Zone'))  # todo: не знаю для чего
     apn = models.CharField(max_length=20, blank=True, null=True, verbose_name=_(u'Modem APN'))
     apn_user = models.CharField(max_length=20, blank=True, null=True, verbose_name=_(u'Modem APN user'))
     apn_password = models.CharField(max_length=20, blank=True, null=True, verbose_name=_(u'Modem APN password'))
@@ -320,14 +319,13 @@ class Modem(models.Model):
 #         managed = False
 #         db_table = 'register_action'
 #         unique_together = (('idmodem', 'numstatemodem', 'idaction', 'idactionvalue'),)
-#
-#
-# class RegisterMeasurement(models.Model):
-#     idrec = models.BigIntegerField(primary_key=True)
-#     idmeasurement = models.ForeignKey(Measurement, models.DO_NOTHING, db_column='idmeasurement', unique=True)
-#     idcodemeasurment = models.IntegerField()
-#     inserted = models.DateTimeField()
-#
-#     class Meta:
-#         managed = False
-#         db_table = 'register_measurement'
+
+# TODO Для чего вообще используем эту таблицу? 'Таблица регистрации измерений для формирования журнала измерений';
+class RegisterMeasurement(models.Model):
+    measurement = models.ForeignKey(Measurement, verbose_name=_(u'Measurement'))  # todo: Зачем тут был unique=True ?
+    idcodemeasurment = models.IntegerField()  # TODO Что это за поле?
+    created = models.DateTimeField(default=django.utils.timezone.now, verbose_name=_(u'Date created'))
+
+    class Meta:
+        verbose_name = _('Modem')
+        verbose_name_plural = _('Modems')
