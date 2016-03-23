@@ -27,7 +27,7 @@ PREREQ_APPS = (
 )
 PROJECT_APPS = (
     'cemona',  # Main application
-    'api',  # REST API
+    'cemona.apps.api',  # REST API
 )
 INSTALLED_APPS = PREREQ_APPS + PROJECT_APPS
 
