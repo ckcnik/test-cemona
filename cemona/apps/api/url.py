@@ -1,7 +1,7 @@
 from django.conf.urls import include, url
 from django.contrib import admin
 # from .views import set_session
-from .api_views import ModemViewSet
+from .api_views import ModemViewSet, register_probe
 
 
 modem_list = ModemViewSet.as_view({
@@ -15,6 +15,17 @@ modem_detail = ModemViewSet.as_view({
     'delete': 'destroy'
 })
 
+# modem_list = ModemViewSet.as_view({
+#     'get': 'list',
+#     'post': 'create'
+# })
+# probe_detail = ProbeViewSet.as_view({
+#     'get': 'retrieve',
+#     'put': 'update',
+#     'patch': 'partial_update',
+#     'delete': 'destroy'
+# })
+
 # item_list = ItemViewSet.as_view({
 #     'get': 'list',
 #     'post': 'create'
@@ -27,8 +38,7 @@ modem_detail = ModemViewSet.as_view({
 # })
 
 urlpatterns = [
-    # url(r'^stat/$', ModemViewSet.as_view(), name='population'),
-    # категории
+    url(r'^probe/register/$', register_probe, name='register-probe'),
     url(r'^modem/$', modem_list, name='modems'),
     url(r'^modem/(?P<pk>[0-9]+)/$', modem_detail, name='modem-detail'),
     # url(r'^api/category/(?P<pk>[0-9]+)/$', category_detail, name='category-detail'),

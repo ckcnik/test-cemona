@@ -1,12 +1,18 @@
 from rest_framework import generics, viewsets, pagination, views
 from cemona.models import Modem
-from .serializers import ModemSerializer
+from rest_framework.response import Response
+from rest_framework import status
+# from .serializers import ModemSerializer
 # from rest_framework.response import Response
 # from rest_framework.permissions import AllowAny
 # from django.contrib.auth import authenticate
 # from django.contrib.auth import login
 # from django.contrib.sessions.models import Session
 # from django.core.urlresolvers import reverse
+from rest_framework.decorators import api_view
+from .serializers import ModemSerializer, ProbeSerializer
+from django.utils.translation import ugettext_lazy as _
+from cemona.models import Probe
 
 
 class StandardResultsSetPagination(pagination.PageNumberPagination):
@@ -78,3 +84,31 @@ class ModemViewSet(viewsets.ModelViewSet):
 #             'status': status
 #         }
 #         return Response(content)
+
+
+@api_view(['POST'])
+def register_probe(request):
+    """
+    Gate for registering Probe and other devices (ethernet, wifi, modems)
+    :param request:
+    :return:
+    """
+    serial_number = request.data['sn']
+
+    try:
+        probe = Probe.objects.get(sn=serial_number)
+    except Probe.DoesNotExist:
+        probe = None
+
+    # md = []
+    # for modem in request.data['modems']:
+    #     try:
+    #         inst_modem = Modem.objects.get(imei=modem['imei'])
+    #     except Modem.DoesNotExist:
+    #         inst_modem = None
+    #     md.append( inst_modem)
+    serializer = ProbeSerializer(probe, data=request.data, partial=True)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response({"message": _("Error probe registering!"), 'more': serializer.errors})

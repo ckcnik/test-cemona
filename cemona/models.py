@@ -96,41 +96,41 @@ class Probe(models.Model):
     """
     Probe model
     """
-    serial_number = models.CharField(unique=True, max_length=50)
-    memory_size = models.IntegerField()
+    sn = models.CharField(unique=True, max_length=50, verbose_name=_(u'Serial number'))
+    ram_size = models.IntegerField(verbose_name=_(u'Memory Size'))
     sd_size = models.IntegerField()
-    mac_address = models.CharField(max_length=16)
+    # baseboard_mac = models.CharField(max_length=20)
     os_version = models.CharField(max_length=100)
-    control_sw_version = models.CharField(max_length=100)
-    communication_device = models.CharField(max_length=20, blank=True, null=True)
-    ip_address = models.GenericIPAddressField(blank=True, null=True)
-    ip_mask = models.GenericIPAddressField(blank=True, null=True)
-    ip_gateway = models.GenericIPAddressField(blank=True, null=True)
-    dns = models.GenericIPAddressField(blank=True, null=True)
-    ftp_address = models.GenericIPAddressField(blank=True, null=True)
-    ftp_login = models.CharField(max_length=20, blank=True, null=True)
-    ftp_password = models.CharField(max_length=20, blank=True, null=True)
-    ftp_port = models.IntegerField(blank=True, null=True)
-    ftp_period = models.IntegerField(blank=True, null=True)
-    http_address = models.GenericIPAddressField(blank=True, null=True)
-    http_port = models.IntegerField(blank=True, null=True)
-    http_period = models.IntegerField(blank=True, null=True)
-    critical_sd_size = models.IntegerField(blank=True, null=True)
-    ssid = models.CharField(max_length=10, blank=True, null=True)
-    wifi_security = models.TextField(blank=True, null=True)  # This field type is a guess.
-    wifi_encription = models.TextField(blank=True, null=True)  # This field type is a guess.
-    wifi_password = models.CharField(max_length=20, blank=True, null=True)
-    wifi_state = models.TextField(blank=True, null=True)  # This field type is a guess.
-    ethernet_test_status = models.CharField(max_length=10, blank=True, null=True)
-    wifi_test_status = models.CharField(max_length=10, blank=True, null=True)
-    gps_status = models.TextField(blank=True, null=True)  # This field type is a guess.
-    ethernet_status = models.TextField(blank=True, null=True)  # This field type is a guess.
-    wifi_status = models.TextField(blank=True, null=True)  # This field type is a guess.
-    probe_status = models.TextField(blank=True, null=True)  # This field type is a guess.
-    work_mode = models.TextField(blank=True, null=True)  # This field type is a guess.
-    target_type = models.TextField(blank=True, null=True)  # This field type is a guess.
-    position_system = models.TextField(blank=True, null=True)  # This field type is a guess.
-    ftp_mode = models.TextField(blank=True, null=True)  # This field type is a guess.
+    csw_version = models.CharField(max_length=100)
+    # communication_device = models.CharField(max_length=20, blank=True, null=True)
+    # ip_address = models.GenericIPAddressField(blank=True, null=True)
+    # ip_mask = models.GenericIPAddressField(blank=True, null=True)
+    # ip_gateway = models.GenericIPAddressField(blank=True, null=True)
+    # dns = models.GenericIPAddressField(blank=True, null=True)
+    # ftp_address = models.GenericIPAddressField(blank=True, null=True)
+    # ftp_login = models.CharField(max_length=20, blank=True, null=True)
+    # ftp_password = models.CharField(max_length=20, blank=True, null=True)
+    # ftp_port = models.IntegerField(blank=True, null=True)
+    # ftp_period = models.IntegerField(blank=True, null=True)
+    # http_address = models.GenericIPAddressField(blank=True, null=True)
+    # http_port = models.IntegerField(blank=True, null=True)
+    # http_period = models.IntegerField(blank=True, null=True)
+    # critical_sd_size = models.IntegerField(blank=True, null=True)
+    # ssid = models.CharField(max_length=10, blank=True, null=True)
+    # wifi_security = models.TextField(blank=True, null=True)  # This field type is a guess.
+    # wifi_encription = models.TextField(blank=True, null=True)  # This field type is a guess.
+    # wifi_password = models.CharField(max_length=20, blank=True, null=True)
+    # wifi_state = models.TextField(blank=True, null=True)  # This field type is a guess.
+    # ethernet_test_status = models.CharField(max_length=10, blank=True, null=True)
+    # wifi_test_status = models.CharField(max_length=10, blank=True, null=True)
+    # gps_status = models.TextField(blank=True, null=True)  # This field type is a guess.
+    # ethernet_status = models.TextField(blank=True, null=True)  # This field type is a guess.
+    # wifi_status = models.TextField(blank=True, null=True)  # This field type is a guess.
+    # probe_status = models.TextField(blank=True, null=True)  # This field type is a guess.
+    # work_mode = models.TextField(blank=True, null=True)  # This field type is a guess.
+    # target_type = models.TextField(blank=True, null=True)  # This field type is a guess.
+    # position_system = models.TextField(blank=True, null=True)  # This field type is a guess.
+    # ftp_mode = models.TextField(blank=True, null=True)  # This field type is a guess.
 
     class Meta:
         verbose_name = _('Probe')
@@ -141,28 +141,99 @@ class Modem(models.Model):
     """
     Modem model
     """
-    probe = models.ForeignKey(Probe, verbose_name=_(u'Probe'))
+    # device_id = models.CharField(max_length=16, blank=True, null=True, verbose_name=_(u'Modem name'))
+    imei = models.BigIntegerField(verbose_name=_(u'Modem IMEI'))
+    probe = models.ForeignKey(Probe, blank=True, null=True, related_name='modems', verbose_name=_(u'Probe'))
     manufacturer = models.CharField(max_length=50, blank=True, null=True, verbose_name=_(u'Modem manufacturer'))
     model = models.CharField(max_length=50, blank=True, null=True, verbose_name=_(u'Modem model'))
-    imei = models.CharField(max_length=16, blank=True, null=True, verbose_name=_(u'Modem IMEI'))
     hw = models.CharField(max_length=10, blank=True, null=True, verbose_name=_(u'HW modem'))
     fw = models.CharField(max_length=10, blank=True, null=True, verbose_name=_(u'FW modem'))
-    imsi_sim = models.CharField(max_length=20, blank=True, null=True, verbose_name=_(u'Modem IMSI'))
-    time_zone = models.CharField(max_length=20, blank=True, null=True,
-                                 verbose_name=_(u'Time Zone'))  # todo: не знаю для чего
-    apn = models.CharField(max_length=20, blank=True, null=True, verbose_name=_(u'Modem APN'))
-    apn_user = models.CharField(max_length=20, blank=True, null=True, verbose_name=_(u'Modem APN user'))
-    apn_password = models.CharField(max_length=20, blank=True, null=True, verbose_name=_(u'Modem APN password'))
-    ras = models.IntegerField(blank=True, null=True, verbose_name=_(u'Modem RAS number'))
-    status = models.TextField(blank=True, null=True)  # This field type is a guess.
-    test_status = models.TextField(blank=True, null=True)  # This field type is a guess.
-    mode = models.TextField(blank=True, null=True)  # This field type is a guess.
-    ethernet_test_status = models.TextField(blank=True, null=True)  # This field type is a guess.
-    wifi_test_status = models.TextField(blank=True, null=True)  # This field type is a guess.
+    imsi = models.CharField(max_length=20, blank=True, null=True, verbose_name=_(u'Modem IMSI'))
+    # time_zone = models.CharField(max_length=20, blank=True, null=True,
+    #                              verbose_name=_(u'Time Zone'))  # todo: не знаю для чего
+    # apn = models.CharField(max_length=20, blank=True, null=True, verbose_name=_(u'Modem APN'))
+    # apn_user = models.CharField(max_length=20, blank=True, null=True, verbose_name=_(u'Modem APN user'))
+    # apn_password = models.CharField(max_length=20, blank=True, null=True, verbose_name=_(u'Modem APN password'))
+    # ras = models.IntegerField(blank=True, null=True, verbose_name=_(u'Modem RAS number'))
+    # status = models.TextField(blank=True, null=True)  # This field type is a guess.
+    # test_status = models.TextField(blank=True, null=True)  # This field type is a guess.
+    # mode = models.TextField(blank=True, null=True)  # This field type is a guess.
+    # ethernet_test_status = models.TextField(blank=True, null=True)  # This field type is a guess.
+    # wifi_test_status = models.TextField(blank=True, null=True)  # This field type is a guess.
 
     class Meta:
         verbose_name = _('Modem')
         verbose_name_plural = _('Modems')
+        # unique_together = (('probe', 'device_id'),)
+
+
+class NetworkAdapter(models.Model):
+    """
+    Model for all devices
+    """
+    device_id = models.CharField(max_length=16, blank=True, null=True, verbose_name=_(u'Device identifier'))
+    probe = models.ForeignKey(Probe, blank=True, null=True, related_name='net_adapters', verbose_name=_(u'Probe'))
+    mac = models.CharField(max_length=20)
+
+    # division on the types of devices (ethernet|wifi)
+    # slug needed for linking with JSON message from Probe
+    ETHERNET = 1
+    WIFI = 2
+    LINKS = [{'id': ETHERNET, 'name': 'ethernet'}, {'id': WIFI, 'name': 'wifi'}]
+    DEVICE_TYPE_CHOICES = (
+        (ETHERNET, _("Ethernet")),
+        (WIFI, _("WiFi")),
+    )
+    type = models.IntegerField(choices=DEVICE_TYPE_CHOICES, default=ETHERNET, verbose_name=_(u'Device type'))
+    name = models.CharField(max_length=100, blank=True, null=True, verbose_name=_(u'Device name'))
+
+    class Meta:
+        verbose_name = _('Network adapter')
+        verbose_name_plural = _('Network adapters')
+
+    @staticmethod
+    def get_device_type_by_name(name):
+        """
+        Return id type device by name
+        """
+
+        type_id = None
+        # try:
+        for link in NetworkAdapter.LINKS:
+            if link['name'] == name:
+                type_id = link['id']
+                break
+        # except IndexError:
+        #     raise Exception('Parent category does not exist')
+        if not type_id:
+            raise Exception('Wrong type network adapter')
+
+        return type_id
+
+# class Ethernet(models.Model):
+#     """
+#     Model for Ethernet devices
+#     """
+#     device_id = models.CharField(max_length=16, blank=True, null=True, verbose_name=_(u'Identifier device'))
+#     probe = models.ForeignKey(Probe, blank=True, null=True, verbose_name=_(u'Probe'))
+#     mac = models.CharField(max_length=16)
+#
+#     class Meta:
+#         verbose_name = _('Ethernet')
+#         verbose_name_plural = _('Ethernet')
+#
+#
+# class Wifi(models.Model):
+#     """
+#     Model for Wifi devices
+#     """
+#     device_id = models.CharField(max_length=16, blank=True, null=True, verbose_name=_(u'Identifier device'))
+#     probe = models.ForeignKey(Probe, blank=True, null=True, verbose_name=_(u'Probe'))
+#     mac = models.CharField(max_length=16)
+#
+#     class Meta:
+#         verbose_name = _('Ethernet')
+#         verbose_name_plural = _('Ethernet')
 
 
 class LoggingModem(models.Model):
